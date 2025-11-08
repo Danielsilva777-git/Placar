@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Placar com Ranking Lateral</title>
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        font-family: "Segoe UI", Arial, sans-serif;
+        background: linear-gradient(135deg, #74ABE2, #5563DE);
+        margin: 0;
+        padding: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        min-height: 100vh;
+    }
+
+    .container {
+        display: flex;
+        flex-wrap: wrap;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        overflow: hidden;
+        max-width: 900px;
+        width: 95%;
+    }
+
+    .placar, .ranking {
+        padding: 25px;
+        flex: 1;
+        min-width: 300px;
+    }
+
+    .placar {
+        border-right: 2px solid #e5e5e5;
+    }
+
+    h2, h3 {
+        text-align: center;
+        color: #333;
+        font-weight: 600;
+    }
+
+    h2 {
+        margin-bottom: 25px;
+        font-size: 1.8em;
+    }
+
+    h3 {
+        margin-bottom: 15px;
+        font-size: 1.5em;
+    }
+
+    .linha {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        background: #f8f8f8;
+        padding: 10px;
+        border-radius: 10px;
+        margin-bottom: 10px;
+        box-shadow: inset 0 0 4px rgba(0,0,0,0.05);
+        transition: transform 0.2s ease;
+    }
+
+    .linha:hover {
+        transform: scale(1.02);
+    }
+
+    .linha input[type="text"] {
+        width: 70%;
+        padding: 8px;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        font-size: 1.1em;
+        font-weight: bold;
+        color: #333;
+    }
+
+    .linha button {
+        background-color: #4CAF50;
+        color: white;
+        border: none;
+        border-radius: 8px;
+        padding: 10px 14px;
+        cursor: pointer;
+        font-size: 1.2em;
+        font-weight: bold;
+        transition: background-color 0.3s ease, transform 0.1s;
+    }
+
+    .linha button:hover {
+        background-color: #43a047;
+        transform: scale(1.1);
+    }
+
+    .total {
+        text-align: center;
+        font-weight: bold;
+        margin: 10px 0 15px 0;
+        color: #222;
+        font-size: 1.1em;
+        background: #eef1f6;
+        padding: 6px;
+        border-radius: 8px;
+    }
+
+    .botoes-gerais {
+        text-align: center;
+        margin-top: 20px;
+    }
+
+    .botoes-gerais button {
+        background-color: #ff5252;
+        border: none;
+        color: white;
+        padding: 10px 16px;
+        border-radius: 10px;
+        cursor: pointer;
+        font-weight: bold;
+        font-size: 0.95em;
+        transition: background-color 0.3s ease;
+    }
+
+    .botoes-gerais button:hover {
+        background-color: #e53935;
+    }
+
+    /* Ranking lateral */
+    .ranking {
+        background: #f7f9ff;
+    }
+
+    .ranking ul {
+        list-style: none;
+        padding: 0;
+        margin: 0;
+    }
+
+    .ranking li {
+        background: #fff;
+        padding: 10px 15px;
+        margin-bottom: 8px;
+        border-radius: 10px;
+        font-weight: bold;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        transition: transform 0.2s ease, background-color 0.2s ease;
+    }
+
+    .ranking li:first-child {
+        background: #ffe083;
+        transform: scale(1.05);
+    }
+
+    .ranking li:nth-child(2) {
+        background: #d9ecff;
+    }
+
+    .ranking li:nth-child(3) {
+        background: #e3ffe0;
+    }
+
+    .ranking li span {
+        font-weight: normal;
+        color: #444;
+    }
+
+    /* Responsividade */
+    @media (max-width: 768px) {
+        .container {
+            flex-direction: column;
+        }
+
+        .placar {
+            border-right: none;
+            border-bottom: 2px solid #e5e5e5;
+        }
+
+        .ranking {
+            text-align: center;
+        }
+
+        .ranking li {
+            justify-content: center;
+            gap: 10px;
+        }
+    }
+</style>
+</head>
+<body>
+    <div class="container">
+        <!-- PLACAR -->
+        <div class="placar">
+            <h2>🎯 Placar dos Participantes</h2>
+
+            <div class="linha">
+                <input type="text" id="nome1" placeholder="Nome 1">
+                <button onclick="adicionarPontos(1)">+</button>
+            </div>
+            <div class="total" id="total1">Total: 0</div>
+
+            <div class="linha">
+                <input type="text" id="nome2" placeholder="Nome 2">
+                <button onclick="adicionarPontos(2)">+</button>
+            </div>
+            <div class="total" id="total2">Total: 0</div>
+
+            <div class="linha">
+                <input type="text" id="nome3" placeholder="Nome 3">
+                <button onclick="adicionarPontos(3)">+</button>
+            </div>
+            <div class="total" id="total3">Total: 0</div>
+
+            <div class="linha">
+                <input type="text" id="nome4" placeholder="Nome 4">
+                <button onclick="adicionarPontos(4)">+</button>
+            </div>
+            <div class="total" id="total4">Total: 0</div>
+
+            <div class="botoes-gerais">
+                <button onclick="resetarPlacar()">🔁 Zerar Placar</button>
+            </div>
+        </div>
+
+        <!-- RANKING -->
+        <div class="ranking">
+            <h3>🏆 Classificação</h3>
+            <ul id="ranking-list"></ul>
+        </div>
+    </div>
+
+<script>
+    const totais = [0, 0, 0, 0];
+
+    function adicionarPontos(num) {
+        const nome = document.getElementById(`nome${num}`);
+        const totalDisplay = document.getElementById(`total${num}`);
+
+        totais[num - 1] += 1; // soma +1 ponto
+        totalDisplay.textContent = `${nome.value || "Jogador " + num} - Total: ${totais[num - 1]}`;
+        atualizarRanking();
+    }
+
+    function resetarPlacar() {
+        for (let i = 1; i <= 4; i++) {
+            totais[i - 1] = 0;
+            document.getElementById(`total${i}`).textContent = "Total: 0";
+        }
+        atualizarRanking();
+    }
+
+    function atualizarRanking() {
+        const rankingList = document.getElementById("ranking-list");
+        rankingList.innerHTML = "";
+
+        let jogadores = [];
+        for (let i = 1; i <= 4; i++) {
+            const nome = document.getElementById(`nome${i}`).value || `Jogador ${i}`;
+            jogadores.push({ nome, pontos: totais[i - 1] });
+        }
+
+        jogadores.sort((a, b) => b.pontos - a.pontos);
+
+        jogadores.forEach((j, index) => {
+            const li = document.createElement("li");
+            li.innerHTML = `<strong>${index + 1}º</strong> ${j.nome} <span>${j.pontos} pts</span>`;
+            rankingList.appendChild(li);
+        });
+    }
+
+    atualizarRanking();
+</script>
+</body>
+</html>
